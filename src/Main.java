@@ -14,24 +14,42 @@ public class Main {
         warrior1.setLife(warrior1.sortLife());
         System.out.println(warrior1.getLife());
         Oracle oracle = new Oracle("Terra", warrior1);
+        int initLife = warrior1.getLife();
+        int jogo = 0 ;
 
+        //while para executar 2 vezes :)
+       while (jogo < 2) {
+    // resetar vida antes de cada jogo
+    warrior1.setLife(warrior1.sortLife());
+    initLife = warrior1.getLife();
 
-        while (warrior1.getLife() != 0) {
-            boolean nextLevel = oracle.loadLevel01();
-            if(nextLevel == true) {
-                if(oracle.loadLevel02() == true){
-                    oracle.winningPrologue();
-                // Prologo de vitoria, com nomes, dano levado etc...    
-                }else{
-                // Prologo de derrota, com nomes, dano levado etc...  
-                System.out.println("prologo de derrota");
-                }
+    while (warrior1.getLife() != 0) {
+        boolean nextLevel = oracle.loadLevel01();
+        if (nextLevel == true) {
+            if (oracle.loadLevel02()) {
+                oracle.RelatorioFimGame(initLife, jogo);
+                oracle.winningPrologue();
+                break; 
+
+            } else {
+                oracle.RelatorioFimGame(initLife, jogo);
+                oracle.loserPrologue();
                 break;
-        }else{
-            // Prologo de derrota, com nomes, dano levado etc... 
-            System.out.println("Prologo de derrota");
-        }      
+            }
+        } else {
+            oracle.loserPrologue();
+            oracle.RelatorioFimGame(initLife, jogo);
+            break;
         }
+    }
+
+    if (jogo != 1) {
+
+        InOut.MsgDeAviso("Aviso", "" + warrior1.getName() + ", nos mostre sua verdadeira força e jogue novamente!");
+    }
+
+    jogo++;
+}
     }
 }
 

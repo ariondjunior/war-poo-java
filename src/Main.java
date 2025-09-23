@@ -1,5 +1,6 @@
 import java.util.Arrays;
 
+import InOut.InOut;
 import models.Bag;
 import models.Item;
 import models.Oracle;
@@ -17,14 +18,23 @@ public class Main {
 
         while (warrior1.getLife() != 0) {
             boolean nextLevel = oracle.loadLevel01();
-
             if(nextLevel == true) {
-                oracle.loadLevel02();
-            } else {
-                warrior1.setLife(warrior1.sortLife());
-            }
+                if(oracle.loadLevel02() == true){
+                    oracle.winningPrologue();
+                // Prologo de vitoria, com nomes, dano levado etc...    
+                }else{
+                // Prologo de derrota, com nomes, dano levado etc...  
+                System.out.println("prologo de derrota");
+                }
+                break;
+        }else{
+            // Prologo de derrota, com nomes, dano levado etc... 
+            System.out.println("Prologo de derrota");
+        }      
         }
-        
     }
-
 }
+
+
+
+

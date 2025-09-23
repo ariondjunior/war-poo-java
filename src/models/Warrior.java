@@ -25,6 +25,7 @@ public class Warrior {
 
     public String extraLife() {
         InOut.MsgDeAviso("Vida extra", "Você recebeu vida extra!");
+        this.setLife(1);
         return "";
     }
 
@@ -40,7 +41,7 @@ public class Warrior {
         return life;
     }
 
-    // Como já possui o sortLife e o extraLife esse método ficará exclusivo para diminuir a vida do guerreiro
+   
     public void setLife(int life) {
         this.life = life;
     }

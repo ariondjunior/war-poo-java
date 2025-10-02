@@ -1,18 +1,18 @@
 package models;
 
-import InOut.InOut;
-
 public class Warrior {
     private String name;
     private int life;
     private Bag bag;
+    private String stringImage;
 
     public Warrior() {}
 
-    public Warrior(String name, Bag bag) {
+    public Warrior(String name, Bag bag, String stringImage) {
         this.name = name;
         // this.life = life;
         this.bag = bag;
+        this.stringImage = stringImage;
     }
 
     public int sortLife() {
@@ -24,7 +24,6 @@ public class Warrior {
     }
 
     public String extraLife() {
-        InOut.MsgDeAviso("Vida extra", "Você recebeu vida extra!");
         this.setLife(1);
         return "";
     }
@@ -56,5 +55,13 @@ public class Warrior {
 
     public void setBag(Bag bag) {
         this.bag = bag;
+    }
+
+    public String getStringImage() {
+        return stringImage;
+    }
+
+    public void setStringImage(String stringImage) {
+        this.stringImage = stringImage;
     }
 }

@@ -19,18 +19,18 @@ public class Oracle {
     }
 
     public String prologueIntroduction() {
-        InOut.MsgDeInformacao("Prologue introduction", "O jogo se passa em uma época de guerra. Aqui possui "
-                + warrior.getName() + " ele possui " + warrior.getLife() + " pontos de vida.");
+        InOut.MsgDeInformacao("Introdução do jogo", "O jogo se passa em uma época de guerra. Aqui possui um guerreiro chamado "
+                + warrior.getName() + " ele possui " + warrior.getLife() + " pontos de vida.\nSeu maior desafio é passar de dois desafios que serão propostos pelo Oráculo. Se vencer salva o mundo, agora\nse perder a humanidade será destruida para SEMPRE. \n \n Para avança no jogo aperte 'OK'", warrior.getStringImage());
         return "";
     }
 
     public String loserPrologue() {
-        InOut.MsgDeAviso("O " + warrior.getName() +", perdeu!", "Não foi dessa vez, tente novamente!");
+        InOut.MsgDeAviso("O " + warrior.getName() +", perdeu!", "Não foi dessa vez, tente novamente!", "oraculo.png");
         return "";
     }
 
     public String winningPrologue() {
-        InOut.MsgDeAviso("O " + warrior.getName() +", venceu", "Parabéns pela sua conquista, você foi incrível!");
+        InOut.MsgDeAviso("O " + warrior.getName() +", venceu", "Parabéns pela sua conquista, você foi incrível!", "oraculo.png");
         return "";
     }
 
@@ -45,32 +45,33 @@ public class Oracle {
         boolean loop = false; 
 
         InOut.MsgDeInformacao("Desafio",
-                "Um número foi sorteado, você deve adivinha-lo. Ele está dentro do intervalo [1, 100]");
+                "Olá, sou o Oráculo! Meu nome é " + this.getName() + ". A partir de agora você enfrentarar 2 grandes desafios para salvar a humanidade, BOA SORTE! \n\n [DESAFIO 1]:\nUm número foi sorteado, você deve adivinha-lo. Ele está dentro do intervalo [1, 100]\n\n", "oraculo.png");
 
         System.out.println(numeroAleatorio);
 
         while (chute != numeroAleatorio && warrior.getLife() != 0) {
-            chute = InOut.leInt("Qual é o número?");
+            chute = InOut.leInt("Qual é o número?", "oraculo.png");
             chutes.add(chute);
 
             if (chute == numeroAleatorio) {
-                InOut.MsgDeInformacao("Parabéns", "Você acertou o número secreto, ele era " + numeroAleatorio);
+                InOut.MsgDeInformacao("Parabéns", "Você acertou o número secreto, ele era " + numeroAleatorio, "oraculo.png");
 
-                InOut.MsgDeAviso("Próximo desafio", "Agora você irá para a próxima fase.");
+                InOut.MsgDeAviso("Próximo desafio", "Agora você irá para a próxima fase.", "oraculo.png");
                 return true;
             }
             if (chute < numeroAleatorio) {
                 warrior.setDamage(1);
                 if (warrior.getLife() != 0) {
+                    
                     InOut.MsgDeAviso("Aviso",
-                            "O número secreto é maior que o chute. Você ainda possui " + warrior.getLife() + " vidas.");
+                            "O número secreto é maior que o chute. Você ainda possui " + warrior.getLife() + " vidas.", "oraculo.png");
                 }
             }
             if (chute > numeroAleatorio) {
                 warrior.setDamage(1);
                 if (warrior.getLife() != 0) {
                     InOut.MsgDeAviso("Aviso",
-                            "O número secreto é menor que o chute. Você ainda possui " + warrior.getLife() + " vidas.");
+                            "O número secreto é menor que o chute. Você ainda possui " + warrior.getLife() + " vidas.", "oraculo.png");
                 }
 
             }
@@ -78,9 +79,10 @@ public class Oracle {
                 loop = true;
                 //Chama o metodo decideExtraLife()dentro do if e verifica se te 5 palavras retornando true or false
                 if(decideExtraLife(InOut.leString("Pedido de misericórdia: ")) == true){
+                    InOut.MsgDeAviso("Vida extra", "Você recebeu vida extra!", "oraculo.png");
                     warrior.extraLife();
                 }else{
-                    InOut.MsgDeAviso("GAME OVER", "O seu pedido foi negado!");
+                    InOut.MsgDeAviso("GAME OVER", "O seu pedido foi negado!", "oraculo.png");
                     return false;
                 }
             } 
@@ -119,39 +121,64 @@ public class Oracle {
                 warrior.setDamage(1);
                 if(warrior.getLife() > 0){
                 InOut.MsgDeAviso("Errou!",
-                           charadas.get(randomIndex) + ", Você ainda possui " + warrior.getLife() + " vidas!");
+                           charadas.get(randomIndex) + ", Você ainda possui " + warrior.getLife() + " vidas!", "oraculo.png");
                 } else if(loop == false) {
                     loop = true;
                     //Chama o metodo decideExtraLife()dentro do if e verifica se te 5 palavras retornando true or false
                     if(decideExtraLife(InOut.leString("Pedido de misericórdia: ")) == true){
                         warrior.extraLife();
                     }else{
-                        InOut.MsgDeAviso("GAME OVER", "O seu pedido foi negado!");
+                        InOut.MsgDeAviso("GAME OVER", "O seu pedido foi negado!", "oraculo.png");
                         return false;
                     }
                 }
             }
         }
-    InOut.MsgDeAviso("Não foi dessa vez", "Você perdeu, tente novamente!");
+    InOut.MsgDeAviso("Não foi dessa vez", "Você perdeu, tente novamente!", "oraculo.png");
     return false;
     } 
 
+    // public void RelatorioFimGame(int vidaInicial, int repGame) {
+    // InOut.MsgDeInformacao("Relatório " + (repGame + 1),
+    // "Vidas Perdidas: " + (vidaInicial - warrior.getLife()) + 
+    // "\n----------------LEVEL 1----------------" +
+    // "\nNúmero: " + chutes.get(chutes.size() - 1) +
+    // "\nPalpites: " 
+    // + chutes + 
+    // "\n----------------LEVEL 2----------------" + 
+    // "\nCharada:"+ respostas.get(randomIndex)+
+    // "\nPalpites: " + palpites, "oraculo.png");
+    // //resetando os valores para o segundo relatorio 
+    // palpites.clear();
+    // chutes.clear();
+    // randomIndex = (int) (Math.random() * 3);
+
+    // }
+
+
     public void RelatorioFimGame(int vidaInicial, int repGame) {
-    InOut.MsgDeInformacao("Relatório " + (repGame + 1),
-    "Vidas Perdidas: " + (vidaInicial - warrior.getLife()) + 
-    "\n----------------LEVEL 1----------------" +
-    "\nNúmero: " + chutes.get(chutes.size() - 1) +
-    "\nPalpites: " 
-    + chutes + 
-    "\n----------------LEVEL 2----------------" + 
-    "\nCharada:"+ respostas.get(randomIndex)+
-    "\nPalpites: " + palpites);
-    //resetando os valores para o segundo relatorio 
+    String relatorio = String.format(
+        "Vidas Perdidas: %d\n" +
+        "----------------LEVEL 1----------------\n" +
+        "Número: %d\n" +
+        "Palpites: %s\n" +
+        "----------------LEVEL 2----------------\n" +
+        "Charada: %s\n" +
+        "Palpites: %s",
+        (vidaInicial - warrior.getLife()),
+        chutes.get(chutes.size() - 1),
+        chutes.toString(),
+        respostas.get(randomIndex),
+        palpites.toString()
+    );
+
+    InOut.MsgDeInformacao("Relatório " + (repGame + 1), relatorio, "oraculo.png");
+    
+    // resetando os valores para o segundo relatorio 
     palpites.clear();
     chutes.clear();
     randomIndex = (int) (Math.random() * 3);
-
-    }
+}
     
 
     public boolean decideExtraLife(String frase) {

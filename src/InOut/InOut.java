@@ -1,5 +1,7 @@
 package InOut;
 
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 /** 
@@ -119,6 +121,39 @@ public class InOut {
 				JOptionPane.showMessageDialog(null, "VALOR DEVE SER UM NUMERO DO TIPO " +
 								    "INTEIRO ", "   >>>      ERRO     <<<", 
 								    JOptionPane.ERROR_MESSAGE);
+				ERRO = true;
+			}
+		}while (ERRO);		
+		return num;
+	}
+
+		/**
+	 * Este metodo eh para entrada de um objeto do tipo int. Tem como parametro 
+	 * de entrada uma String que indicara para o usuario qual o dado que sera 
+	 * lido naquele momento por aquela caixa de texto. 
+	 * Le entao uma String e a converte para um objeto do tipo int. 
+	 * O processo so para quando a conversao for bem sucedida.  
+	 * 
+	 * @param frase que sera usada para o usuario saber qual dado sera lido
+	 * @return um objeto do tipo int
+	 */
+	public static int leInt (String frase, String src){
+		int num = 0;
+		String Entrada;
+		boolean ERRO;
+
+		Icon i = new ImageIcon(src);
+		
+		do{
+			try{
+				Entrada = JOptionPane.showInputDialog(null, frase, "Entrada de dados", JOptionPane.QUESTION_MESSAGE);
+				num = Integer.parseInt(Entrada);
+				ERRO = false;
+			}
+			catch(Exception e){
+				JOptionPane.showMessageDialog(null, "VALOR DEVE SER UM NUMERO DO TIPO " +
+								    "INTEIRO ", "   >>>      ERRO     <<<", 
+								    JOptionPane.ERROR_MESSAGE, i);
 				ERRO = true;
 			}
 		}while (ERRO);		
@@ -263,6 +298,20 @@ public class InOut {
 		JOptionPane.showMessageDialog(null, frase, cabecalho, JOptionPane.INFORMATION_MESSAGE);
 	}
 
+		/**
+	 * Este metodo foi criado para mandar uma mensagem com o icone de
+	 * INFORMACAO
+	 *  
+	 * @param cabecalho que aparecer no topo da mensagem
+	 * @param frase     que aparecera dentro da caixa de mensagem
+	 */
+	public static void MsgDeInformacao(String cabecalho, String frase, String src){
+
+		Icon i = new ImageIcon(src);
+
+		JOptionPane.showMessageDialog(null, frase, cabecalho, JOptionPane.INFORMATION_MESSAGE, i);
+	}
+
 	/**
 	 * Este metodo foi criado para mandar uma mensagem sem icone 
 	 *  
@@ -281,7 +330,15 @@ public class InOut {
 	 * @param frase     que aparecera dentro da caixa de mensagem
 	 */
 	public static void MsgDeAviso (String cabecalho, String frase){
+
 		JOptionPane.showMessageDialog(null, frase, cabecalho, JOptionPane.WARNING_MESSAGE);
+	}
+
+	public static void MsgDeAviso (String cabecalho, String frase, String src){
+		
+		Icon i = new ImageIcon(src);
+
+		JOptionPane.showMessageDialog(null, frase, cabecalho, JOptionPane.WARNING_MESSAGE, i);
 	}
 	
 	

@@ -5,20 +5,27 @@ import java.util.Arrays;
 import java.util.List;
 
 import InOut.InOut;
+import Music.Music;
 
 public class Oracle {
     private String name;
     private Warrior warrior;
+    private Music music;
 
     public Oracle() {
+        this.music = new Music();
     }
 
     public Oracle(String name, Warrior warrior) {
         this.name = name;
         this.warrior = warrior;
+        this.music = new Music();
     }
 
     public String prologueIntroduction() {
+        // Inicia a música de fundo do jogo
+        music.playBackgroundMusic("src/sounds/music.wav");
+        
         InOut.MsgDeInformacao("Introdução do jogo", "O jogo se passa em uma época de guerra. Aqui possui um guerreiro chamado "
                 + warrior.getName() + " ele possui " + warrior.getLife() + " pontos de vida.\nSeu maior desafio é passar de dois desafios que serão propostos pelo Oráculo. Se vencer salva o mundo, agora\nse perder a humanidade será destruida para SEMPRE. \n \n Para avança no jogo aperte 'OK'", warrior.getStringImage());
         return "";
@@ -30,8 +37,17 @@ public class Oracle {
     }
 
     public String winningPrologue() {
+        // Para a música ao vencer
+        music.stopBackgroundMusic();
         InOut.MsgDeAviso("O " + warrior.getName() +", venceu", "Parabéns pela sua conquista, você foi incrível!", "oraculo.png");
         return "";
+    }
+
+    /**
+     * Para toda a música do jogo
+     */
+    public void stopGameMusic() {
+        music.stopAllSounds();
     }
 
     //lista para auxiliar no relatorio final
@@ -78,10 +94,18 @@ public class Oracle {
             if(warrior.getLife() == 0 && loop == false){
                 loop = true;
                 //Chama o metodo decideExtraLife()dentro do if e verifica se te 5 palavras retornando true or false
-                if(decideExtraLife(InOut.leString("Pedido de misericórdia: ", "oraculo.png")) == true){
+                String pedido = InOut.leString("Pedido de misericórdia: ", "oraculo.png");
+                
+                if(decideExtraLife(pedido) == true){
                     InOut.MsgDeAviso("Vida extra", "Você recebeu vida extra!", "oraculo.png");
                     warrior.extraLife();
                 }else{
+                    // Toca música de terror pausando a música de fundo
+                    music.playEffectSoundWithPause("src/sounds/terror.wav");
+                    
+                    // Mostra imagem assustadora com som de terror
+                    InOut.MsgDeAviso("HAHAHAHHAHA", "", "terror.jpeg");
+                    
                     InOut.MsgDeAviso("GAME OVER", "O seu pedido foi negado!", "oraculo.png");
                     return false;
                 }
@@ -125,9 +149,17 @@ public class Oracle {
                 } else if(loop == false) {
                     loop = true;
                     //Chama o metodo decideExtraLife()dentro do if e verifica se te 5 palavras retornando true or false
-                    if(decideExtraLife(InOut.leString("Pedido de misericórdia: ", "oraculo.png")) == true){
+                    String pedido = InOut.leString("Pedido de misericórdia: ", "oraculo.png");
+                    
+                    if(decideExtraLife(pedido) == true){
                         warrior.extraLife();
                     }else{
+                        // Toca música de terror pausando a música de fundo
+                        music.playEffectSoundWithPause("src/sounds/terror.wav");
+                        
+                        // Mostra imagem assustadora com som de terror
+                        InOut.MsgDeAviso("HAHAHAHHAHA", "", "terror.jpeg");
+
                         InOut.MsgDeAviso("GAME OVER", "O seu pedido foi negado!", "oraculo.png");
                         return false;
                     }

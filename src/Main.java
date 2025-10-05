@@ -19,8 +19,6 @@ import models.Warrior;
 
 public class Main {
 
-    private static Clip backgroundMusic;
-
     public static void main(String[] args) {
 
         JFrame w = new JFrame("Janela principal");
@@ -45,8 +43,6 @@ public class Main {
 
         w.setVisible(true);
 
-//        playBackgroundMusic("src/sounds/music.wav");
-
         Item item = new Item(1L, "Sword", true);
         Bag bag = new Bag(Arrays.asList(item));
         Warrior warrior1 = new Warrior("Arion", bag, "guerreiro1.png");
@@ -64,7 +60,7 @@ public class Main {
 
             while (warrior1.getLife() != 0) {
                 boolean nextLevel = oracle.loadLevel01();
-                if (nextLevel == true) {
+                if (nextLevel) {
                     if (oracle.loadLevel02()) {
                         oracle.RelatorioFimGame(initLife, jogo);
                         oracle.winningPrologue();
@@ -90,26 +86,8 @@ public class Main {
             jogo++;
         }
 
-        stopBackgroundMusic();
+        // Para toda a música ao finalizar o jogo
+        oracle.stopGameMusic();
     }
 
-    private static void playBackgroundMusic(String filePath) {
-        try {
-            File audioFile = new File(filePath);
-            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(audioFile);
-            backgroundMusic = AudioSystem.getClip();
-            backgroundMusic.open(audioInputStream);
-            backgroundMusic.loop(Clip.LOOP_CONTINUOUSLY);
-            backgroundMusic.start();
-        } catch (Exception e) {
-            System.err.println("Erro ao reproduzir música: " + e.getMessage());
-        }
-    }
-
-    private static void stopBackgroundMusic() {
-        if (backgroundMusic != null && backgroundMusic.isRunning()) {
-            backgroundMusic.stop();
-            backgroundMusic.close();
-        }
-    }
 }

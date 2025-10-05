@@ -1,13 +1,13 @@
 package models;
 
+//Classe "Warrior" que é responsável pelo controle básico das informações do guerreiro
 public class Warrior {
     private String name;
     private int life;
     private Bag bag;
     private String stringImage;
 
-    public Warrior() {}
-
+    //Construtor que deve receber os parâmetros nome, Object Bag e aparência do personagem. 
     public Warrior(String name, Bag bag, String stringImage) {
         this.name = name;
         // this.life = life;
@@ -15,6 +15,7 @@ public class Warrior {
         this.stringImage = stringImage;
     }
 
+    //Sorteio da vida do guerreiro no intervaldo de [9,12]
     public int sortLife() {
         int max = 12;
         int min = 9;
@@ -23,11 +24,13 @@ public class Warrior {
         return numeroAleatorio;
     }
 
+    //Méotodo que adiciona 1 vida estra para o guerreiro
     public String extraLife() {
         this.setLife(1);
         return "";
     }
 
+    //GETTERS E SETTERS
     public String getName() {
         return name;
     }

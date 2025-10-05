@@ -31,6 +31,23 @@ public class InOut {
 		Entrada = JOptionPane.showInputDialog (null, frase, "Entrada de dados", JOptionPane.QUESTION_MESSAGE);
 		return Entrada;
 	}
+
+	/**
+	 * Este metodo eh para entrada de uma String. Tem como parametro de entrada
+	 * uma String que indicara para o usuario qual o dado que sera lido naquele
+	 * momento por aquela caixa de texto e retorna a String lida
+	 *
+	 * @param frase que sera usada para o usuario saber qual dado sera lido
+	 * @return String que foi lida
+	 */
+	public static String leString (String frase, String src){
+		String Entrada;
+
+		Icon i = new ImageIcon(src);
+
+		Entrada = JOptionPane.showInputDialog (null, frase, "Entrada de dados", JOptionPane.QUESTION_MESSAGE, i, null, null).toString();
+		return Entrada;
+	}
 	
 	/**
 	 * Este metodo eh para entrada de um objeto do tipo byte. Tem como parametro 
@@ -146,7 +163,7 @@ public class InOut {
 		
 		do{
 			try{
-				Entrada = JOptionPane.showInputDialog(null, frase, "Entrada de dados", JOptionPane.QUESTION_MESSAGE);
+				Entrada = JOptionPane.showInputDialog(null, frase, "Entrada de dados", JOptionPane.QUESTION_MESSAGE,i, null, null).toString();
 				num = Integer.parseInt(Entrada);
 				ERRO = false;
 			}

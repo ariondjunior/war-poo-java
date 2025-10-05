@@ -78,7 +78,7 @@ public class Oracle {
             if(warrior.getLife() == 0 && loop == false){
                 loop = true;
                 //Chama o metodo decideExtraLife()dentro do if e verifica se te 5 palavras retornando true or false
-                if(decideExtraLife(InOut.leString("Pedido de misericórdia: ")) == true){
+                if(decideExtraLife(InOut.leString("Pedido de misericórdia: ", "oraculo.png")) == true){
                     InOut.MsgDeAviso("Vida extra", "Você recebeu vida extra!", "oraculo.png");
                     warrior.extraLife();
                 }else{
@@ -111,7 +111,7 @@ public class Oracle {
 
         //verificacao de acerto e vida do guerreiro para continuar o loop
         while(acerto == false && warrior.getLife() != 0) {
-            chute2 = InOut.leString(charadas.get(randomIndex));
+            chute2 = InOut.leString(charadas.get(randomIndex), "oraculo.png");
             palpites.add(chute2);
 
             System.out.println(chute2);
@@ -125,7 +125,7 @@ public class Oracle {
                 } else if(loop == false) {
                     loop = true;
                     //Chama o metodo decideExtraLife()dentro do if e verifica se te 5 palavras retornando true or false
-                    if(decideExtraLife(InOut.leString("Pedido de misericórdia: ")) == true){
+                    if(decideExtraLife(InOut.leString("Pedido de misericórdia: ", "oraculo.png")) == true){
                         warrior.extraLife();
                     }else{
                         InOut.MsgDeAviso("GAME OVER", "O seu pedido foi negado!", "oraculo.png");

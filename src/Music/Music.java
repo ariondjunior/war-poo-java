@@ -5,6 +5,20 @@ import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import java.io.File;
 
+/** 
+ * A classe <i>Music</i> é responsável pelo controle completo do sistema de áudio do jogo.
+ * Esta classe gerencia tanto a música de fundo quanto os efeitos sonoros, proporcionando
+ * uma experiência sonora imersiva durante o gameplay.
+ * <ul>
+ * <li>Controla música de fundo com reprodução em loop contínuo
+ * <li>Gerencia efeitos sonoros independentes da música principal
+ * <li>Implementa sistema de pausa e retomada da música de fundo
+ * <li>Fornece funcionalidade de efeitos sonoros com pausa automática da música
+ * <li>Oferece controle total sobre todos os sons ativos no jogo
+ * <li>Trata exceções de áudio para garantir estabilidade do sistema
+ * <li>Utiliza threads para sincronização entre música e efeitos sonoros
+ * </ul>  
+ */
 public class Music {
 
     private Clip backgroundMusic;
@@ -12,10 +26,19 @@ public class Music {
     private boolean isPaused = false;
     private String currentBackgroundMusicPath;
 
+    /**
+     * Construtor padrão da classe Music.
+     * Inicializa o sistema de música sem reproduzir nenhum áudio,
+     * preparando o gerenciador para futuras operações de som.
+     */
     public Music() {}
 
     /**
-     * Toca uma música de fundo em loop
+     * Reproduz uma música de fundo em loop contínuo.
+     * Para qualquer música anterior e inicia a nova música especificada.
+     * A música tocará continuamente até ser interrompida manualmente.
+     * 
+     * @param filePath caminho para o arquivo de áudio (.wav) a ser reproduzido
      */
     public void playBackgroundMusic(String filePath) {
         try {
@@ -38,7 +61,9 @@ public class Music {
     }
 
     /**
-     * Para a música de fundo
+     * Para completamente a música de fundo.
+     * Interrompe a reprodução e libera os recursos de áudio utilizados.
+     * Redefine o estado de pausa para falso.
      */
     public void stopBackgroundMusic() {
         if (backgroundMusic != null && backgroundMusic.isRunning()) {
@@ -50,7 +75,9 @@ public class Music {
     }
 
     /**
-     * Pausa a música de fundo
+     * Pausa temporariamente a música de fundo.
+     * Mantém o estado atual para permitir retomada posterior no mesmo ponto.
+     * A música pode ser retomada usando resumeBackgroundMusic().
      */
     public void pauseBackgroundMusic() {
         if (backgroundMusic != null && backgroundMusic.isRunning()) {
@@ -60,7 +87,9 @@ public class Music {
     }
 
     /**
-     * Retoma a música de fundo pausada
+     * Retoma a música de fundo previamente pausada.
+     * Reinicia a reprodução da última música que estava tocando,
+     * desde que tenha sido pausada anteriormente.
      */
     public void resumeBackgroundMusic() {
         if (isPaused && currentBackgroundMusicPath != null) {
@@ -69,7 +98,11 @@ public class Music {
     }
 
     /**
-     * Toca um efeito sonoro (não em loop)
+     * Reproduz um efeito sonoro único (sem loop).
+     * O efeito é tocado uma vez e não interfere na música de fundo.
+     * Ideal para sons de ações pontuais como cliques ou notificações.
+     * 
+     * @param filePath caminho para o arquivo de áudio do efeito sonoro
      */
     public void playEffectSound(String filePath) {
         try {
@@ -86,7 +119,12 @@ public class Music {
     }
 
     /**
-     * Toca um efeito sonoro pausando a música de fundo, e depois retoma
+     * Reproduz um efeito sonoro pausando temporariamente a música de fundo.
+     * Pausa a música atual, toca o efeito especificado e automaticamente
+     * retoma a música após o término do efeito. Utiliza threading para
+     * sincronização automática.
+     * 
+     * @param filePath caminho para o arquivo de áudio do efeito sonoro
      */
     public void playEffectSoundWithPause(String filePath) {
         pauseBackgroundMusic();
@@ -109,7 +147,9 @@ public class Music {
     }
 
     /**
-     * Para todos os sons
+     * Para todos os sons ativos no sistema.
+     * Interrompe tanto a música de fundo quanto qualquer efeito sonoro
+     * em reprodução, liberando todos os recursos de áudio.
      */
     public void stopAllSounds() {
         stopBackgroundMusic();
@@ -121,7 +161,11 @@ public class Music {
     }
 
     /**
-     * Verifica se há música de fundo tocando
+     * Verifica se há música de fundo sendo reproduzida atualmente.
+     * Útil para verificar o estado do sistema de áudio antes de
+     * executar outras operações musicais.
+     * 
+     * @return boolean true se há música de fundo tocando, false caso contrário
      */
     public boolean isBackgroundMusicPlaying() {
         return backgroundMusic != null && backgroundMusic.isRunning();

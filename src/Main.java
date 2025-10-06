@@ -1,4 +1,3 @@
-
 import java.awt.*;
 import java.io.File;
 import java.util.Arrays;
@@ -29,7 +28,7 @@ public class Main {
 
         //Código resposável por adicionar e redimensionar a imagem conforme o tamanho da tela
         try {
-            ImageIcon originalImage = new ImageIcon("war-poo-java/background.png");
+            ImageIcon originalImage = new ImageIcon("background.png");
             // altera o tamnho da tela
             Image scaledImage = originalImage.getImage().getScaledInstance(
                     (int) screenSize.getWidth(),
@@ -49,7 +48,7 @@ public class Main {
         //Instanciando objetos(item,bag,warrior,oráculo)
         Item item = new Item(1L, "Sword", true);
         Bag bag = new Bag(Arrays.asList(item));
-        Warrior warrior1 = new Warrior("Arion", bag, "war-poo-java/guerreiro1.png");
+        Warrior warrior1 = new Warrior("Arion", bag, "guerreiro1.png");
         warrior1.setLife(warrior1.sortLife());
         System.out.println(warrior1.getLife());
         Oracle oracle = new Oracle("Destroier", warrior1);
